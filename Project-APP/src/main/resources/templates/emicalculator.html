@@ -30,18 +30,16 @@
 
     <script>
     $(document).ready(function() {
-
         $("#emibtn").click(function () {
-            var loanAmount = $("#loanAmount").val();
-
-            var loanTerm = $("#loanTerm").val();
-            var loanType = $("#loanType").val();
+            loanAmount= $("#loanAmount").val();
+            loanType= sessionStorage.getItem("type");
+            loanTime= $("#loanTerm").val();
             $.get("http://localhost:8082/loan/scheme/"+loanType,function (rateOfInterest) {
                 alert("Rate Of Interest for this loan is:"+rateOfInterest)
-                var monthlyInterest = rateOfInterest / 1200;
-                var emi = (loanAmount * monthlyInterest) / (1 - Math.pow(1 + monthlyInterest, -loanTerm));
-                 // to update the html with id given to display result
-                $("#emi").text("The total EMI to be paid is Rs:" + emi.toFixed(2));
+                interest = (loanAmount * (rateOfInterest * 0.01)) / loanTime;
+                emi = ((loanAmount/loanTime) + interest).toFixed(2);
+
+                $("#emi").text("The total EMI to be paid is Rs:" + emi);
             })
         });
 
@@ -83,16 +81,16 @@
             <label for="loanTerm">Loan Term (in months)</label>
             <input type="number" class="form-control" id="loanTerm" placeholder="Enter Loan Term in Months">
         </div>
-        <div class="form-group">
-            <label for="loanType">Choose a loan type:</label>
-            <select name="loantype" id="loanType">
-                <option value="Personal loan">Personal Loan</option>
-                <option value="Home loan">Home Loan</option>
-                <option value="Car loan">Car Loan</option>
-                <option value="Education  loan">Education Loan</option>
-            </select>
-            <input type="hidden" id="rateOfInterest">
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label for="loanType">Choose a loan type:</label>-->
+<!--            <select name="loantype" id="loanType">-->
+<!--                <option value="Personal loan">Personal Loan</option>-->
+<!--                <option value="Home loan">Home Loan</option>-->
+<!--                <option value="Car loan">Car Loan</option>-->
+<!--                <option value="Education  loan">Education Loan</option>-->
+<!--            </select>-->
+<!--            <input type="hidden" id="rateOfInterest">-->
+<!--        </div>-->
         <div class="text-center">
             <button type="button" id="emibtn" class="btn btn-primary mt-3">Calculate EMI</button>
         </div>

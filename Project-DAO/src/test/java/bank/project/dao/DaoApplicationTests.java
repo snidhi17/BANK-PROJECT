@@ -69,4 +69,27 @@ class DaoApplicationTests {
 
 
     }
-}
+    @Test
+    public void testGetUsername(){
+
+        Customer c1 = new Customer(1, "7477 ", "Manvith", "Udupi", "Inactive", "manvith", 878773435, 3);
+        String username="manvith";
+        when(jdbcTemplate.queryForObject(eq("select * from CUSTOMER where USERNAME=?"),  any(RowMapper.class),eq(username)))
+               .thenReturn(c1);
+        Customer customer1=bankService.getByUsername("manvith");
+        assertEquals(c1.getUsername(),customer1.getUsername());
+
+    }
+
+//    @Test
+//    public void testlistloanDetails(){
+//        LoanScheme l1 = new LoanScheme(4, "personal loan", "Assured personal loan", "taken for any personal problems", 0.09f);
+//        LoanScheme l2 = new LoanScheme(2, "vehicle loan", "IOR loans", "gives good value", 0.44f);
+//        List<LoanScheme> tempList = Stream.of(l1, l2 ).collect(Collectors.toList());
+//        when(jdbcTemplate.query(eq("select loan_scheme_desc,loan_scheme_roi,loan_scheme_name,loan_scheme_type from loanscheme where loan_scheme_type=?"), any(RowMapper.class))).thenReturn(tempList);
+//        assertEquals(l1, bankService.listLoanDetails("personal loan").get());
+//    }
+    }
+
+
+

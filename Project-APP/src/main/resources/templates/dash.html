@@ -31,9 +31,9 @@
            contentType:"text/xml;charset=\"UTF-8\"",
            data:soapRequest,
            success:(data)=>{
-               alert("Display all types of loan");
-               alert("Click on CALCULATE EMI for calculating EMI for your loan type")
-       $(data).find('ns2\\:loan').each(function(){
+               // alert("Display all types of loan");
+               // alert("Click on CALCULATE EMI for calculating EMI for your loan type")
+           $(data).find('ns2\\:loan').each(function(){
            var type=$(this).find('ns2\\:loanSchemeType').text();
            var name=$(this).find('ns2\\:loanSchemeName').text();
            var desc=$(this).find('ns2\\:loanSchemeDesc').text();
@@ -49,8 +49,21 @@
       }
       });
      $("#personalbtn").click(()=>{
-     window.location.href="http://localhost:8082/web/personalloan?id=41";
-      })
+         sessionStorage.setItem("type","Personal loan");
+     window.location.href="http://localhost:8082/web/emi";
+     })
+        $("#carbtn").click(()=>{
+            sessionStorage.setItem("type","Car loan");
+            window.location.href="http://localhost:8082/web/emi";
+        })
+        $("#educationbtn").click(()=>{
+            sessionStorage.setItem("type","Education loan");
+            window.location.href="http://localhost:8082/web/emi";
+        })
+        $("#homebtn").click(()=>{
+            sessionStorage.setItem("type","Home loan");
+            window.location.href="http://localhost:8082/web/emi";
+        })
       })
 
 </script>
@@ -104,7 +117,10 @@
                 <div class="card-body">
                     <p>Get a  loan with ease of request offered by Unity bank</p>
                     <p class="fst-italic fw-bold">CALCULATE EMI FOR YOUR LOAN TYPE</p>
-                    <button type="button " class="btn btn-warning btn-sm" id="personalbtn">CALCULATE  EMI</button>
+                    <button type="button " class="btn btn-warning btn-sm" id="personalbtn">Personal Loan</button>
+                    <button type="button " class="btn btn-warning btn-sm" id="carbtn">Car Loan</button>
+                    <button type="button " class="btn btn-warning btn-sm" id="homebtn">Home Loan</button>
+                    <button type="button " class="btn btn-warning btn-sm" id="educationbtn">Education Loan</button>
 
                 </div>
             </div>

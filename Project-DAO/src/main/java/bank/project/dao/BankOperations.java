@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface BankOperations {
     List<Customer>listCustomer();
-    List<Customer> readUserName(String name);
+   // List<Customer> readUserName(String name);
     Customer getByUsername(String username);
 
     void decrementAttempts(int id);

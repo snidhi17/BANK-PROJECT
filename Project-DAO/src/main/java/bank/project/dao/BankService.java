@@ -37,16 +37,6 @@ public class BankService implements  BankOperations {
 
 
     @Override
-    public List<Customer> readUserName(String name) {
-        logger.info("It will return username of customer"+name);
-        return jdbcTemplate.query("select * from customer where username=? ", new Object[]{name}, new CustomerMapper());
-
-    }
-
-    //    public Optional<Customer> getByUsername(String user) {
-//        return Optional.of(jdbcTemplate.queryForObject("select * from customer where username=?",new Object[]{user},new BeanPropertyRowMapper<>(Customer.class)));
-//    }
-    @Override
     public Customer getByUsername(String username) {
         try {
             Customer customer = jdbcTemplate.queryForObject("select * from CUSTOMER where USERNAME=?", new CustomerMapper(), username);
