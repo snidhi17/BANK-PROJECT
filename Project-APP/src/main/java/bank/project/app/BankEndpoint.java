@@ -25,23 +25,26 @@ public class BankEndpoint {
     @Autowired
     private BankService bankService;
 
-    @PayloadRoot(namespace = url,localPart = "listLoanRequest")//
+    @PayloadRoot(namespace = url,localPart = "listLoanRequest")
     @ResponsePayload
+         // handles a SOAP web service request with the local part "listLoanRequest".
     public ListLoanResponse listLoanResponse(@RequestPayload ListLoanRequest listLoansRequest){
-        //create response
+        //method takes in a request payload of type "ListLoanRequest" and returns a response payload of type "ListLoanResponse"
         ListLoanResponse response=new ListLoanResponse();
-
+        logger.info(" Will retrieve list of loan schemes");
         List<bank.project.dao.LoanScheme> loanSchemeList = bankService.listloanAll();// pojo objects
+        logger.info("Request has been made");
         logger.info(loanSchemeList.toString());
         List<soap.project.bank.LoanScheme> loansList=new ArrayList<>();// xml list of objects as of its empty
 
         Iterator<bank.project.dao.LoanScheme> it= loanSchemeList.iterator();
         while(it.hasNext()){
+            //the retrieved loan schemes are converted into XML objects of type "soap.project.bank.LoanScheme" using the "BeanUtils.copyProperties()" method(covert one java object to another
             soap.project.bank.LoanScheme loan = new soap.project.bank.LoanScheme();// XSD POJO
             BeanUtils.copyProperties(it.next(),loan);
             loansList.add(loan);
         }
-
+        //gets the size ,the first element of the "loan" property of the response object and returns the response object.
         response.getLoan().addAll(loansList);
         logger.info(response.getLoan().size()+"" + response.getLoan().get(0));
         return response;

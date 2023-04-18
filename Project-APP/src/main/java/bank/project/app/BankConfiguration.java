@@ -15,11 +15,13 @@ import org.springframework.xml.xsd.XsdSchema;
 
 import javax.xml.bind.annotation.XmlSchema;
 
+//sets up a SOAP web service endpoint
 @EnableWs
 @Configuration
 public class BankConfiguration extends WsConfigurerAdapter {
     @Bean(name = "loanScheme")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema loanSchema){
+   // creates a WSDL definition for the loan schemes SOAP web service endpoint.
         DefaultWsdl11Definition schemaObject=new DefaultWsdl11Definition();
         schemaObject.setPortTypeName("loanPort");
         schemaObject.setTargetNamespace("http://bank.project.soap");
@@ -31,11 +33,13 @@ public class BankConfiguration extends WsConfigurerAdapter {
     public XsdSchema loanSchema(){
         return new SimpleXsdSchema(new ClassPathResource("loan.xsd"));
     }
+   // "loanSchema" bean returns an XSD schema object that defines the structure of the XML request and response messages for the SOAP web service.
     @Bean
     public ServletRegistrationBean servletRegistrationBean(ApplicationContext applicationContext){
+   // "servletRegistrationBean" bean creates a "MessageDispatcherServlet" object and registers it with the Servlet container.
         MessageDispatcherServlet servlet=new MessageDispatcherServlet();
-        servlet.setTransformWsdlLocations(true);
-        servlet.setApplicationContext(applicationContext);
+        servlet.setTransformWsdlLocations(true);//configures the servlet to transform the WSDL location to match the URL of the deployed web service.
+        servlet.setApplicationContext(applicationContext);//
         return new ServletRegistrationBean(servlet,"/loanpoint/*");
     }
 }

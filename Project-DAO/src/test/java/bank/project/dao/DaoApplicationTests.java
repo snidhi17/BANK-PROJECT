@@ -38,7 +38,7 @@ class DaoApplicationTests {
     BankService bankService;
 
     @Test
-    public void testListAll() {
+    public void testListAllCustomer() {
         Customer customer1 = new Customer(1, "7477 ", "Manvith", "Udupi", "Inactive", "manvith", 878773435, 3);
         Customer customer2 = new Customer(2, "3432", "Nidhi", "Karkala", "Active", "nidhi", 776567785, 2);
         List<Customer> tempList = Stream.of(customer1, customer2).collect(Collectors.toList());
@@ -81,15 +81,24 @@ class DaoApplicationTests {
 
     }
 
-//    @Test
-//    public void testlistloanDetails(){
-//        LoanScheme l1 = new LoanScheme(4, "personal loan", "Assured personal loan", "taken for any personal problems", 0.09f);
-//        LoanScheme l2 = new LoanScheme(2, "vehicle loan", "IOR loans", "gives good value", 0.44f);
-//        List<LoanScheme> tempList = Stream.of(l1, l2 ).collect(Collectors.toList());
-//        when(jdbcTemplate.query(eq("select loan_scheme_desc,loan_scheme_roi,loan_scheme_name,loan_scheme_type from loanscheme where loan_scheme_type=?"), any(RowMapper.class))).thenReturn(tempList);
-//        assertEquals(l1, bankService.listLoanDetails("personal loan").get());
-//    }
+    @Test
+    public void testlistloanDetails(){
+        LoanScheme loanScheme3 = new LoanScheme(4, "personal loan", "Assured personal loan", "taken for any personal problems", 0.09f);
+        LoanScheme loanScheme4 = new LoanScheme(2, "vehicle loan", "IOR loans", "gives good value", 0.44f);
+        List<LoanScheme> tempList = Stream.of(loanScheme3, loanScheme4 ).collect(Collectors.toList());
+        String schemeType="Personal Loan";
+        when(jdbcTemplate.queryForObject(eq("select loan_scheme_desc,loan_scheme_roi,loan_scheme_name,loan_scheme_type from loanscheme where loan_scheme_type=?"), any(RowMapper.class),eq(schemeType))).thenReturn(loanScheme3);
+        assertEquals(loanScheme3, bankService.listLoanDetails(schemeType));
     }
+
+    @Test
+    public void testloanRoi(){
+        LoanScheme loanScheme3= new LoanScheme(4, "personal loan", "Assured personal loan", "taken for any personal problems", 0.09f);
+        String schemeType="Personal Loan";
+        when(jdbcTemplate.queryForObject(eq("select loan_scheme_roi from loanscheme where loan_scheme_type=?"),eq(Float.class),eq(schemeType))).thenReturn(5.7f);
+        assertEquals(5.7f,bankService.loanROI("Personal Loan"));
+    }
+}
 
 
 

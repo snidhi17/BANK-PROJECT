@@ -54,7 +54,7 @@ public class BankService implements  BankOperations {
     }
 
     @Override
-    //if two times right and third time correct
+    //if two times wrong and third time correct
     public void decrementAttempts(int id) {
         jdbcTemplate.update("update CUSTOMER set ATTEMPTS = ATTEMPTS - 1 where CUSTOMER_ID=?",id);
         logger.info("Decreased the number of attempts");
@@ -90,9 +90,9 @@ public class BankService implements  BankOperations {
         return jdbcTemplate.query("select * from loanscheme", new LoanMapper());
     }
 
-    public Optional<LoanScheme> listLoanDetails(String loan_scheme_type){
+    public LoanScheme listLoanDetails(String loan_scheme_type){
         logger.info("gives details from loan scheme table based on "+loan_scheme_type);
-        return Optional.of(jdbcTemplate.queryForObject("select loan_scheme_desc,loan_scheme_roi,loan_scheme_name,loan_scheme_type from loanscheme where loan_scheme_type=?",new Object[]{loan_scheme_type},new BeanPropertyRowMapper<LoanScheme>(LoanScheme.class)));
+        return (jdbcTemplate.queryForObject("select loan_scheme_desc,loan_scheme_roi,loan_scheme_name,loan_scheme_type from loanscheme where loan_scheme_type=?",new LoanMapper(),loan_scheme_type));
     }
 
     @Override
@@ -100,10 +100,6 @@ public class BankService implements  BankOperations {
         logger.info("gives details from loan scheme table based on "+loan_scheme_type);
         return jdbcTemplate.queryForObject("select loan_scheme_roi from loanscheme where loan_scheme_type=?",Float.class,loan_scheme_type);
     }
-
-
-
-
 
     class CustomerMapper implements RowMapper<Customer> {
         @Override

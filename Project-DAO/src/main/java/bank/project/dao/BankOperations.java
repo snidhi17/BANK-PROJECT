@@ -17,7 +17,7 @@ public interface BankOperations {
     void incrementFailedAttempts(int id);
     List<LoanScheme> listloanAll();
     //LoanScheme getLoanDetails(int loan_scheme_id);
-    Optional<LoanScheme> listLoanDetails(String loan_scheme_type);
+    LoanScheme listLoanDetails(String loan_scheme_type);
     float loanROI(String  loan_scheme_type);
 
 }

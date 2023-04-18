@@ -10,11 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.image.BandCombineOp;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 
 @ComponentScan("bank.project.dao")
 @RestController
@@ -55,7 +52,7 @@ public class BankController {
     }
 
     @GetMapping("/details/{loan_scheme_type}")
-    public Optional<LoanScheme> listLoanDetails(@PathVariable("loan_scheme_type") String loan_scheme_type){
+    public LoanScheme listLoanDetails(@PathVariable("loan_scheme_type") String loan_scheme_type){
         logger.info("Controller will find records that matches "+loan_scheme_type);
         return bankService.listLoanDetails(loan_scheme_type);
 

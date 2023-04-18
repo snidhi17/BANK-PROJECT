@@ -38,8 +38,12 @@
                 alert("Rate Of Interest for this loan is:"+rateOfInterest)
                 interest = (loanAmount * (rateOfInterest * 0.01)) / loanTime;
                 emi = ((loanAmount/loanTime) + interest).toFixed(2);
+                totalRepayableAmount=(emi*loanTime);
 
-                $("#emi").text("The total EMI to be paid is Rs:" + emi);
+                $("#emi").text("The total EMI  is Rs:" + emi);
+                $("#repayamount").text("The total amount to be paid is Rs:" + totalRepayableAmount);
+
+
             })
         });
 
@@ -81,54 +85,17 @@
             <label for="loanTerm">Loan Term (in months)</label>
             <input type="number" class="form-control" id="loanTerm" placeholder="Enter Loan Term in Months">
         </div>
-<!--        <div class="form-group">-->
-<!--            <label for="loanType">Choose a loan type:</label>-->
-<!--            <select name="loantype" id="loanType">-->
-<!--                <option value="Personal loan">Personal Loan</option>-->
-<!--                <option value="Home loan">Home Loan</option>-->
-<!--                <option value="Car loan">Car Loan</option>-->
-<!--                <option value="Education  loan">Education Loan</option>-->
-<!--            </select>-->
-<!--            <input type="hidden" id="rateOfInterest">-->
-<!--        </div>-->
+
         <div class="text-center">
             <button type="button" id="emibtn" class="btn btn-primary mt-3">Calculate EMI</button>
         </div>
-    </form>
-<!--    chnage-->
     <div id="loan-amount-error" style="color: red;"></div>
 
     <p id="emi"></p>
+    <p id="repayamount"></p>
 </div>
 
 
-<!-- <div class="col mt-5 p-5">
-    <div id="" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="files/cousel2.jpg" height="300px" width="100px" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="files/coursel1.jpg"  height="300px" width="100px" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="files/coursel3.jpg" height="300px"  width="100px" class="d-block w-100" alt="...">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</div> -->
 
-
-
-
-<!--<script src="script.js"></script>-->
 </body>
 </html>

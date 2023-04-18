@@ -81,6 +81,7 @@
 
     <build>
         <plugins>
+<!--            jaxb is used to convert xsd to java-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>

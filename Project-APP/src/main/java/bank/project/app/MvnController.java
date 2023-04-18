@@ -17,7 +17,7 @@ public class MvnController {
         return "dash";
     }
     @GetMapping("/emi")
-    public String loancCalculator()
+    public String loanCalculator()
     {
 
         return "emicalculator";
