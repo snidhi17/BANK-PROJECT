@@ -39,11 +39,11 @@ class DaoApplicationTests {
 
     @Test
     public void testListAll() {
-        Customer c1 = new Customer(1, "7477 ", "Manvith", "Udupi", "Inactive", "manvith", 878773435, 3);
-        Customer c2 = new Customer(2, "3432", "Nidhi", "Karkala", "Active", "nidhi", 776567785, 2);
-        List<Customer> tempList = Stream.of(c1, c2).collect(Collectors.toList());
+        Customer customer1 = new Customer(1, "7477 ", "Manvith", "Udupi", "Inactive", "manvith", 878773435, 3);
+        Customer customer2 = new Customer(2, "3432", "Nidhi", "Karkala", "Active", "nidhi", 776567785, 2);
+        List<Customer> tempList = Stream.of(customer1, customer2).collect(Collectors.toList());
         when(jdbcTemplate.query(eq("select * from customer"), any(RowMapper.class))).thenReturn(tempList);
-        assertEquals(c2, bankService.listCustomer().get(1));
+        assertEquals(customer2, bankService.listCustomer().get(1));
 
     }
 
@@ -60,24 +60,24 @@ class DaoApplicationTests {
 //
     @Test
     public void testListAllLoans() {
-        LoanScheme l1 = new LoanScheme(4, "personal loan", "Assured personal loan", "taken for any personal problems", 0.09f);
-        LoanScheme l2 = new LoanScheme(6, "gold loan", "bhima gold", "to buy gold at less rate of interest", 0.30f);
-        LoanScheme l3 = new LoanScheme(2, "vehicle loan", "IOR loans", "gives good value", 0.44f);
-        List<LoanScheme> tempList = Stream.of(l1, l2, l3).collect(Collectors.toList());
+        LoanScheme loanScheme1 = new LoanScheme(4, "personal loan", "Assured personal loan", "taken for any personal problems", 0.09f);
+        LoanScheme loanScheme2 = new LoanScheme(6, "gold loan", "bhima gold", "to buy gold at less rate of interest", 0.30f);
+        LoanScheme loanScheme3 = new LoanScheme(2, "vehicle loan", "IOR loans", "gives good value", 0.44f);
+        List<LoanScheme> tempList = Stream.of(loanScheme1, loanScheme2, loanScheme3).collect(Collectors.toList());
         when(jdbcTemplate.query(eq("select * from customer"), any(RowMapper.class))).thenReturn(tempList);
-        assertEquals(l3, bankService.listCustomer().get(2));
+        assertEquals(loanScheme3, bankService.listCustomer().get(2));
 
 
     }
     @Test
     public void testGetUsername(){
 
-        Customer c1 = new Customer(1, "7477 ", "Manvith", "Udupi", "Inactive", "manvith", 878773435, 3);
+        Customer customer1 = new Customer(1, "7477 ", "Manvith", "Udupi", "Inactive", "manvith", 878773435, 3);
         String username="manvith";
         when(jdbcTemplate.queryForObject(eq("select * from CUSTOMER where USERNAME=?"),  any(RowMapper.class),eq(username)))
-               .thenReturn(c1);
-        Customer customer1=bankService.getByUsername("manvith");
-        assertEquals(c1.getUsername(),customer1.getUsername());
+               .thenReturn(customer1);
+        Customer customer2=bankService.getByUsername("manvith");
+        assertEquals(customer1.getUsername(),customer1.getUsername());
 
     }
 

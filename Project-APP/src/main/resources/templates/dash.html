@@ -31,8 +31,6 @@
            contentType:"text/xml;charset=\"UTF-8\"",
            data:soapRequest,
            success:(data)=>{
-               // alert("Display all types of loan");
-               // alert("Click on CALCULATE EMI for calculating EMI for your loan type")
            $(data).find('ns2\\:loan').each(function(){
            var type=$(this).find('ns2\\:loanSchemeType').text();
            var name=$(this).find('ns2\\:loanSchemeName').text();
@@ -48,10 +46,10 @@
 
       }
       });
-     $("#personalbtn").click(()=>{
+       $("#personalbtn").click(()=>{
          sessionStorage.setItem("type","Personal loan");
-     window.location.href="http://localhost:8082/web/emi";
-     })
+         window.location.href="http://localhost:8082/web/emi";
+       })
         $("#carbtn").click(()=>{
             sessionStorage.setItem("type","Car loan");
             window.location.href="http://localhost:8082/web/emi";

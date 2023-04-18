@@ -28,6 +28,7 @@ public class BankEndpoint {
     @PayloadRoot(namespace = url,localPart = "listLoanRequest")//
     @ResponsePayload
     public ListLoanResponse listLoanResponse(@RequestPayload ListLoanRequest listLoansRequest){
+        //create response
         ListLoanResponse response=new ListLoanResponse();
 
         List<bank.project.dao.LoanScheme> loanSchemeList = bankService.listloanAll();// pojo objects
