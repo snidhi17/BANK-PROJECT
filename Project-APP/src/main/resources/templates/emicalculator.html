@@ -34,6 +34,10 @@
             loanAmount= $("#loanAmount").val();
             loanType= sessionStorage.getItem("type");
             loanTime= $("#loanTerm").val();
+            if(loanAmount>500000){
+                $('#loan-amount-error').text('Loan amount cannot be greater than 5 lakh.');
+                return false;
+            }
             $.get("http://localhost:8082/loan/scheme/"+loanType,function (rateOfInterest) {
                 alert("Rate Of Interest for this loan is:"+rateOfInterest)
                 interest = (loanAmount * (rateOfInterest * 0.01)) / loanTime;
@@ -50,23 +54,7 @@
     });
 
 </script>
-<!--    <script>-->
-<!--        $(document).ready(function() {-->
-<!--            $('#loan-form').submit(function(e) {-->
-<!--                e.preventDefault(); // Prevent the form from submitting normally-->
 
-<!--                var loanAmount = $('#loanAmount').val();-->
-<!--                if (loanAmount > 300000) {-->
-<!--                    $('#loan-amount-error').text('Loan amount cannot be greater than 3 lakh.');-->
-<!--                    return false; // Stop form submission-->
-<!--                } else {-->
-<!--                    // Send an AJAX request to the server here if the loan amount is valid-->
-<!--                   -->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-
-<!--    </script>-->
 
 
 
@@ -75,8 +63,8 @@
 </div>
 <div class="container col mt-4 p-5  ">
     <h1> EMI Calculator</h1>
-<!--    change-->
-    <form >
+
+    <form id="loan-form" >
         <div class="form-group">
             <label for="loanAmount">Loan Amount</label>
             <input type="number" class="form-control" id="loanAmount" placeholder="Enter Loan Amount">
@@ -93,9 +81,7 @@
 
     <p id="emi"></p>
     <p id="repayamount"></p>
+    </form>
 </div>
-
-
-
 </body>
 </html>

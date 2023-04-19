@@ -4,6 +4,7 @@
             elementFormDefault="qualified">
 
     <!-- POJO -->
+<!--    two complex type-->
     <xsd:complexType name="loanScheme">
         <xsd:sequence>
             <xsd:element name="loanSchemeId" type="xsd:int" />
@@ -22,6 +23,7 @@
     </xsd:complexType>
 
     <!--    List Loan Scheme-->
+<!--    "listLoanRequest" element has an empty complex type, while the "listLoanResponse" element has a complex type that includes a status message and an array of "loanScheme" elements.-->
     <xsd:element name="listLoanRequest">
         <xsd:complexType/>
     </xsd:element>
@@ -30,6 +32,7 @@
             <xsd:sequence>
                 <xsd:element name="status" type="tns:serviceStatus" />
                 <xsd:element name="loan" type="tns:loanScheme" maxOccurs="unbounded"/>
+<!--                the "maxOccurs" attribute is used in the "listLoanResponse" element to specify that the "loan" element can occur an unlimited number of times within the sequence.-->
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

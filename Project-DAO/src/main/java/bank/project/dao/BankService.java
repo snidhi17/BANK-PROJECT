@@ -8,6 +8,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
@@ -17,7 +20,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Service
-public class BankService implements  BankOperations {
+public class BankService implements  BankOperations, UserDetailsService {
 
 
     @Autowired
@@ -29,15 +32,15 @@ public class BankService implements  BankOperations {
 
     public List<Customer> listCustomer()
     {
+        //service method to list all the details of  the customer
         logger.info("It will return all the customer details");
         return jdbcTemplate.query("select * from customer", new CustomerMapper());
-
-//        logger.info("It will return all the customer details"+listCustomer());
     }
 
 
     @Override
     public Customer getByUsername(String username) {
+        //service method to get all detail of customer by using username
         try {
             Customer customer = jdbcTemplate.queryForObject("select * from CUSTOMER where USERNAME=?", new CustomerMapper(), username);
             logger.info("will retrieve data from table based on "+username);
@@ -53,7 +56,6 @@ public class BankService implements  BankOperations {
         return attempts;
     }
 
-    @Override
     //if two times wrong and third time correct
     public void decrementAttempts(int id) {
         jdbcTemplate.update("update CUSTOMER set ATTEMPTS = ATTEMPTS - 1 where CUSTOMER_ID=?",id);
@@ -62,45 +64,58 @@ public class BankService implements  BankOperations {
 
     }
 
-    @Override
     public void setAttempts(int id) {
         jdbcTemplate.update("update CUSTOMER set ATTEMPTS=3 where CUSTOMER_ID=?",id);
         logger.info("Set attempts to 3");
     }
 
-    @Override
+    //to set attempt to 0 if user is inactive
     public void updateStatus() {
         jdbcTemplate.update("update CUSTOMER set CUSTOMER_STATUS='Inactive' where ATTEMPTS=0");
         logger.info("Status set to inactive");
     }
 
-    @Override
     public void incrementFailedAttempts(int id) {
+        //if three unsucessfull attempts customer account will be deactivated
         jdbcTemplate.update("update CUSTOMER set FAILED_ATTEMPTS = FAILED_ATTEMPTS + 1 where CUSTOMER_ID=?", id);
         jdbcTemplate.update("update CUSTOMER set CUSTOMER_STATUS='Inactive' where FAILED_ATTEMPTS=3");
     }
 
-    //decrement and set attempts
 
 
-//LOAN OPERATIONS
+
+    //LOAN OPERATIONS
     @Override
-    public List<LoanScheme> listloanAll() {
-        //logger.info("Gives details regarding the loan scheme"+listloanAll());
+    public List<LoanScheme> listALLAvailableLoan() {
+        //to list all the details from loan scheme table
+        logger.info("Gives details regarding the loan scheme");
         return jdbcTemplate.query("select * from loanscheme", new LoanMapper());
     }
 
     public LoanScheme listLoanDetails(String loan_scheme_type){
+        //to retrieve details like loan description,loan name,loan roi from loan scheme table by using loan type
         logger.info("gives details from loan scheme table based on "+loan_scheme_type);
         return (jdbcTemplate.queryForObject("select loan_scheme_desc,loan_scheme_roi,loan_scheme_name,loan_scheme_type from loanscheme where loan_scheme_type=?",new LoanMapper(),loan_scheme_type));
     }
 
     @Override
     public float loanROI(String loan_scheme_type) {
+        //to retrieve loan roi which is of type float and parameter is loan_scheme_type
         logger.info("gives details from loan scheme table based on "+loan_scheme_type);
         return jdbcTemplate.queryForObject("select loan_scheme_roi from loanscheme where loan_scheme_type=?",Float.class,loan_scheme_type);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Customer customer=getByUsername(username);
+        if(customer==null){
+            throw new UsernameNotFoundException("Invalid user");
+        }
+        return customer;
+    }
+
+
+    //created mapper class for bothcustomer and loan table
     class CustomerMapper implements RowMapper<Customer> {
         @Override
         public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {

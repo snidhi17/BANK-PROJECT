@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//banksceheme POJO class
 public class BankScheme {
     private int loanSchemeId;
     private String loanSchemeType;

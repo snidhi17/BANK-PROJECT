@@ -14,6 +14,7 @@
 <body style="background-color:beige;">
 <script>
     function calculate(type){
+        //called this functon for button
         sessionStorage.setItem("type",type);
         window.location.href="http://localhost:8082/web/emi";
     }
@@ -36,19 +37,15 @@
            var name=$(this).find('ns2\\:loanSchemeType').text();
            var desc=$(this).find('ns2\\:loanSchemeDesc').text();
            var roi=$(this).find('ns2\\:loanSchemeRoi').text();
-
-         console.log('name:'+name+',type:'+type+',desc:'+desc+',roi:'+roi);
+           console.log('name:'+name+',type:'+type+',desc:'+desc+',roi:'+roi);
         $("tbody").append("<tr><td>"+name+"</td><td>"+type+"</td><td>"+desc+"</td><td>"+roi+"<td><button type='button' class='btn btn-success' onclick=\"calculate('"+name+"')\">Calculate EMI</button> </td></tr>");
        });
       },
         error:()=>{
         alert("error")
-
-      }
+        }
       });
-
-
-        })
+    })
 </script>
 <div class="container">
     <div class="justify-content-center d-flex">
