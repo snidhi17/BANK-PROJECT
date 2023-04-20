@@ -38,27 +38,36 @@ class DaoApplicationTests {
     BankService bankService;
 
     @Test
+    //testing for listing all customer
     public void testListAllCustomer() {
+        //create dummy values for customer for testing
         Customer customer1 = new Customer(1, "7477 ", "Manvith", "Udupi", "Inactive", "manvith", 878773435, 3);
         Customer customer2 = new Customer(2, "3432", "Nidhi", "Karkala", "Active", "nidhi", 776567785, 2);
+        //create a list of customer to store value
         List<Customer> tempList = Stream.of(customer1, customer2).collect(Collectors.toList());
         when(jdbcTemplate.query(eq("select * from customer"), any(RowMapper.class))).thenReturn(tempList);
+        //to check pass or fail status
         assertEquals(customer2, bankService.listCustomer().get(1));
 
     }
 
     @Test
+    //testing for listing all loans
     public void testListAllLoans() {
+        //create dummy values for loan for testing
         LoanScheme loanScheme1 = new LoanScheme(4, "personal loan", "Assured personal loan", "taken for any personal problems", 0.09f);
         LoanScheme loanScheme2 = new LoanScheme(6, "gold loan", "bhima gold", "to buy gold at less rate of interest", 0.30f);
         LoanScheme loanScheme3 = new LoanScheme(2, "vehicle loan", "IOR loans", "gives good value", 0.44f);
+        //listing of values
         List<LoanScheme> tempList = Stream.of(loanScheme1, loanScheme2, loanScheme3).collect(Collectors.toList());
         when(jdbcTemplate.query(eq("select * from customer"), any(RowMapper.class))).thenReturn(tempList);
+        //to check pass or fail status
         assertEquals(loanScheme3, bankService.listCustomer().get(2));
 
 
     }
     @Test
+    //testing to get username
     public void testGetUsername(){
 
         Customer customer1 = new Customer(1, "7477 ", "Manvith", "Udupi", "Inactive", "manvith", 878773435, 3);
@@ -71,6 +80,7 @@ class DaoApplicationTests {
     }
 
     @Test
+    //testing to get loan details
     public void testlistloanDetails(){
         LoanScheme loanScheme3 = new LoanScheme(4, "personal loan", "Assured personal loan", "taken for any personal problems", 0.09f);
         LoanScheme loanScheme4 = new LoanScheme(2, "vehicle loan", "IOR loans", "gives good value", 0.44f);
@@ -81,6 +91,7 @@ class DaoApplicationTests {
     }
 
     @Test
+    //testing to list rate of interest
     public void testloanRoi(){
         LoanScheme loanScheme3= new LoanScheme(4, "personal loan", "Assured personal loan", "taken for any personal problems", 0.09f);
         String schemeType="Personal Loan";

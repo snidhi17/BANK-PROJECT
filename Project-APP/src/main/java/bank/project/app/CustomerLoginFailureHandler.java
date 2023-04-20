@@ -23,37 +23,37 @@ public class CustomerLoginFailureHandler extends SimpleUrlAuthenticationFailureH
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        ResourceBundle resourceBundle=ResourceBundle.getBundle("loan");
         String userName=request.getParameter("username");
         String passWord=request.getParameter("password");
         Customer customer=bankService.getByUsername(userName);
         if(customer==null){
             exception=new LockedException(resourceBundle.getString("db_user"));
+            super.setDefaultFailureUrl("/web/log?error="+ resourceBundle.getString("db_user"));
         }
         else{
             if(customer.getCustomerstatus().equalsIgnoreCase("inactive")){
-                logger.info(resourceBundle.getString("db_unsuccessful"));
-                exception=new LockedException(resourceBundle.getString("db_unsuccessful"));
-                super.setDefaultFailureUrl("/web/log?error="+ resourceBundle.getString("db_unsuccessful"));
+                logger.info(resourceBundle.getString("db_unsuccessfull"));
+                exception=new LockedException(resourceBundle.getString("db_unsuccessfull"));
+                super.setDefaultFailureUrl("/web/log?error="+ resourceBundle.getString("db_unsuccessfull"));
             }
             else{
                 bankService.incrementFailedAttempts(customer.getCustomerid());
                 int attempts=bankService.getAttempts(customer.getCustomerid());
                 if(attempts==1){
                     logger.info(resourceBundle.getString("db_incorrect_pw")+resourceBundle.getString("attempt2"));
-                    exception=new LockedException(resourceBundle.getString("db_incorrect_pw")+resourceBundle.getString("db_incorrect_pw"));
+                    exception=new LockedException(resourceBundle.getString("attempt2")+resourceBundle.getString("db_incorrect_pw"));
                     super.setDefaultFailureUrl("/web/log?error="+ resourceBundle.getString("db_incorrect_pw")+resourceBundle.getString("attempt2"));
                 }
                 else if(attempts==2){
                     logger.info(resourceBundle.getString("db_incorrect_pw")+resourceBundle.getString("attempt1"));
-                    exception=new LockedException(resourceBundle.getString("db_incorrect_pw")+resourceBundle.getString("db_incorrect_pw"));
+                    exception=new LockedException(resourceBundle.getString("attempt1")+resourceBundle.getString("db_incorrect_pw"));
                     super.setDefaultFailureUrl("/web/log?error="+ resourceBundle.getString("db_incorrect_pw")+resourceBundle.getString("attempt1"));
                 }
                 else{
-                    logger.info(resourceBundle.getString("db_success"));
-                    exception=new LockedException(resourceBundle.getString("db_success"));
+                    logger.info(resourceBundle.getString("db_unsuccessfull"));
+                    exception=new LockedException(resourceBundle.getString("db_unsuccessfull"));
                     bankService.updateStatus();
-                    super.setDefaultFailureUrl("/web/log?error=" + resourceBundle.getString("db_success"));
+                    super.setDefaultFailureUrl("/web/log?error=" + resourceBundle.getString("db_unsuccessfull"));
                 }
             }}
         super.onAuthenticationFailure(request, response, exception);

@@ -4,20 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View All LOAN TYPE</title>
+<!--    page title-->
+    <title>VIEW All LOAN TYPE</title>
+<!--    bootstrap links-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<!--    link for adding AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
 </head>
+<!--background colour for page-->
 <body style="background-color:beige;">
 <script>
     function calculate(type){
         //called this functon for button
+        // key value pair
         sessionStorage.setItem("type",type);
+        // link to direct to next page
         window.location.href="http://localhost:8082/web/emi";
     }
+    // connecting SOAP to front end
     var soapRequest="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:bank=\"http://bank.project.soap\">\n"+
  "<soapenv:Header/>\n"+
  "<soapenv:Body>\n"+
@@ -25,44 +32,53 @@
  "</soapenv:Body>\n"+
  "</soapenv:Envelope>"
     $(document).ready(function(){
+        // AJAX method
        $.ajax({
+           // url for loanpoint
            url:"http://localhost:8082/loanpoint",
+           // method type post
            type:"POST",
            dataType:"xml",
            contentType:"text/xml;charset=\"UTF-8\"",
            data:soapRequest,
            success:(data)=>{
+            // for  displaying the response
            $(data).find('ns2\\:loan').each(function(){
            var type=$(this).find('ns2\\:loanSchemeName').text();
            var name=$(this).find('ns2\\:loanSchemeType').text();
            var desc=$(this).find('ns2\\:loanSchemeDesc').text();
            var roi=$(this).find('ns2\\:loanSchemeRoi').text();
            console.log('name:'+name+',type:'+type+',desc:'+desc+',roi:'+roi);
+           // table structure
         $("tbody").append("<tr><td>"+name+"</td><td>"+type+"</td><td>"+desc+"</td><td>"+roi+"<td><button type='button' class='btn btn-success' onclick=\"calculate('"+name+"')\">Calculate EMI</button> </td></tr>");
        });
       },
+           // error function
         error:()=>{
         alert("error")
         }
       });
     })
 </script>
+<!--create a container for page-->
 <div class="container">
     <div class="justify-content-center d-flex">
         <h1 style="font-family: Times New Roman;">
+<!--            logo and heading-->
             <img class="me-4" src="/images/BankLogo.jpg" width="150px" height="100px" />
             UNITY BANK
         </h1>
     </div>
 </div>
 <div class="col-12 p-3 me-2 ms-1">
+<!--    marque-->
     <div class="text-warning h-100">
         <marquee direction="left" class="h-50 bg-dark">
             <p>Unity bank is your first choice for monetary needs and also the bank has now increased interest on Savings account holders.</p>
         </marquee>
     </div>
+<!--    creating loan scheme table-->
     <div class="container mt-5 me-5 ms-4">
-        <!-- Split up with two columns -->
         <div class="row justify-content-center">
             <!-- Main column1 - Featured products via Card component -->
 <!--            <div class="col-lg-6 col-sm-10 align-self-center">-->
@@ -70,8 +86,10 @@
                     Available Loans
                 </h1>
                 <div class="table-responsive">
+<!--                    table class-->
                     <table class="table table-bordered table-striped p-2 bg-light shadow-lg text-nowrap" cellspacing="1px" cellpadding="1px">
                         <thead>
+<!--                        name of rows of table-->
                         <tr>
                             <th>Loan Scheme Type</th>
                             <th>Loan Scheme Name</th>
@@ -84,20 +102,7 @@
                     </table>
                 </div>
             </div>
-
-<!--            <div class="col-lg-6 mt-3 bg-danger text-center text-light card p-2 rounded-1 shadow-lg">-->
-<!--                <img class="d-block card-img w-60 h-10" src="" />-->
-<!--                <h1 class="card-title">Lending money for your needs</h1>-->
-<!--                <div class="card-body">-->
-<!--                    <p>Get a loan with ease of request offered by Unity bank</p>-->
-<!--                    <p class="fst-italic fw-bold">CALCULATE EMI FOR YOUR LOAN TYPE</p>-->
-<!--                    <button type="button" class="btn btn-warning btn-sm" id="personalbtn">Personal Loan</button>-->
-<!--                    <button type="button" class="btn btn-warning btn-sm" id="carbtn">Car Loan</button>-->
-<!--                    <button type="button" class="btn btn-warning btn-sm" id="homebtn">Home Loan</button>-->
-<!--                    <button type="button" class="btn btn-warning btn-sm" id="educationbtn">Education Loan</button>-->
-<!--                </div>-->
-<!--            </div>-->
-        </div>
+    </div>
     </div>
 </div>
 </body>

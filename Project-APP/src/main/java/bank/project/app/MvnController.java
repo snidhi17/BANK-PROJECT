@@ -23,7 +23,6 @@ public class MvnController {
     //direct to page with emi calculator
     public String loanCalculator()
     {
-
         return "emicalculator";
     }
 }

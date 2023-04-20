@@ -1,13 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ad00c204-ba1f-4498-98e6-1a800a4c7a94" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Project-APP/Unitybank.log.2023-04-19.0.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-APP/Unitybank.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/Unitybank.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-APP/Unitybank.log.2023-04-12.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/BankSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/BankSecurity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/CustomerLoginFailureHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/CustomerLoginFailureHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/CustomerLoginSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/CustomerLoginSuccessHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/MvnController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/MvnController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/dash.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/dash.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/emicalculator.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/emicalculator.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/BankOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/BankOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/BankService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/BankService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-DAO/src/main/resources/loan.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-DAO/src/main/resources/loan.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project-DAO/src/test/java/bank/project/dao/DaoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-DAO/src/test/java/bank/project/dao/DaoApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="2OdvdiUHNH7RIY7Vi03ZYXncQTb" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ad00c204-ba1f-4498-98e6-1a800a4c7a94" name="Default Changelist" comment="" />
+      <created>1681903362204</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681903362204</updated>
+      <workItem from="1681903363506" duration="560000" />
+      <workItem from="1681972827040" duration="1216000" />
+    </task>
+    <task id="LOCAL-00001" summary="Test report">
+      <created>1681903423576</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681903423576</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Test report" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test report" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="277" y="0" key="CommitChangelistDialog2" timestamp="1681903421903">
+      <screen x="0" y="0" width="1280" height="672" />
+    </state>
+    <state x="277" y="0" key="CommitChangelistDialog2/0.0.1280.672@0.0.1280.672" timestamp="1681903421903" />
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1681903444800">
+      <screen x="0" y="0" width="1280" height="672" />
+    </state>
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.672@0.0.1280.672" timestamp="1681903444800" />
   </component>
 </project>

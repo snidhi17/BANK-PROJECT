@@ -7,7 +7,6 @@ public interface BankOperations {
   //created an interface to implement these methods
     List<Customer>listCustomer();
     Customer getByUsername(String username);
-
     //LOAN OPERATIONS
     List<LoanScheme> listALLAvailableLoan();
     LoanScheme listLoanDetails(String loan_scheme_type);

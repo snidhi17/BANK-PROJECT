@@ -2,6 +2,8 @@ package bank.project.app;
 
 import bank.project.dao.BankService;
 import bank.project.dao.Customer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.Authentication;
@@ -16,15 +18,26 @@ import java.util.ResourceBundle;
 
 @Component
 public class CustomerLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+    @Autowired
+    BankService bankService;
+    private Logger logger = LoggerFactory.getLogger(BankService.class);
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         Customer customer = (Customer) authentication.getPrincipal();
-        logger.info(customer.toString());
-        logger.info(customer+" in success handler");
+
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("loan");
+        if (customer.getCustomerstatus().equalsIgnoreCase("inactive")) {
+//        logger.info(resourceBundle.toString());
+            logger.info("  not successful");
+            super.setDefaultTargetUrl("/logout");
 //        if(customer.getAttempts()==0)
 //            logger.info("deactivate");
-        super.setDefaultTargetUrl("/web/dash");
+        } else {
+            bankService.setAttempts(customer.getCustomerid());
+            super.setDefaultTargetUrl("/web/dash");
+
+        }
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

@@ -51,27 +51,27 @@ public class BankService implements  BankOperations, UserDetailsService {
         }
     }
     public int getAttempts(int id) {
-        int attempts = jdbcTemplate.queryForObject("select ATTEMPTS from CUSTOMER where CUSTOMER_ID=?",Integer.class,id);
+        int attempts = jdbcTemplate.queryForObject("select FAILED_ATTEMPTS from CUSTOMER where CUSTOMER_ID=?",Integer.class,id);
         logger.info("Returned Attempts");
         return attempts;
     }
 
     //if two times wrong and third time correct
-    public void decrementAttempts(int id) {
-        jdbcTemplate.update("update CUSTOMER set ATTEMPTS = ATTEMPTS - 1 where CUSTOMER_ID=?",id);
-        logger.info("Decreased the number of attempts");
-        updateStatus();
-
-    }
+//    public void decrementAttempts(int id) {
+//        jdbcTemplate.update("update CUSTOMER set ATTEMPTS = ATTEMPTS - 1 where CUSTOMER_ID=?",id);
+//        logger.info("Decreased the number of attempts");
+//        updateStatus();
+//
+//    }
 
     public void setAttempts(int id) {
-        jdbcTemplate.update("update CUSTOMER set ATTEMPTS=3 where CUSTOMER_ID=?",id);
+        jdbcTemplate.update("update CUSTOMER set FAILED_ATTEMPTS=3 where CUSTOMER_ID=?",id);
         logger.info("Set attempts to 3");
     }
 
     //to set attempt to 0 if user is inactive
     public void updateStatus() {
-        jdbcTemplate.update("update CUSTOMER set CUSTOMER_STATUS='Inactive' where ATTEMPTS=0");
+        jdbcTemplate.update("update CUSTOMER set CUSTOMER_STATUS='Inactive' where FAILED_ATTEMPTS=0");
         logger.info("Status set to inactive");
     }
 
@@ -80,9 +80,6 @@ public class BankService implements  BankOperations, UserDetailsService {
         jdbcTemplate.update("update CUSTOMER set FAILED_ATTEMPTS = FAILED_ATTEMPTS + 1 where CUSTOMER_ID=?", id);
         jdbcTemplate.update("update CUSTOMER set CUSTOMER_STATUS='Inactive' where FAILED_ATTEMPTS=3");
     }
-
-
-
 
     //LOAN OPERATIONS
     @Override

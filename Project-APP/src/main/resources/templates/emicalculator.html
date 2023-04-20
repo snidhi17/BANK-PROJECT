@@ -1,87 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>EMI Loan Calculator</title>
+<!--    Bootstrap links-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<!--    AJAX link-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
+        /*styling for form container*/
         .container {
             margin-top: 50px;
             width: 500px;
-            height: 400px;
+            height: 500px;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0px 0px 10px 1px rgb(123, 114, 114);
             background-color: rgb(123, 114, 114);
         }
-
+          /*styling for displaying result*/
         #result {
             margin-top: 50px;
             font-size: 24px;
             text-align: center;
             display: flex;
         }
+           /*styling for mandatory field * */
+        .required::after{
+            content:"*" ;
+            color: red;
+            font-size: 20px;
+
+        }
     </style>
 </head>
-
+<!--background colour for page-->
 <body style="background-color: beige;">
 
-
-    <script>
+<script>
+    // AJA function for calculating EMI
     $(document).ready(function() {
-        $("#emibtn").click(function () {
+        // action to be take when emibutton is clicked
+            $("#emibtn").click(function () {
+            // declaring variable to store values-loanAmount,loanType,loanTime
             loanAmount= $("#loanAmount").val();
+            // session storage for getting value based on type
             loanType= sessionStorage.getItem("type");
             loanTime= $("#loanTerm").val();
-            if(loanAmount>500000){
-                $('#loan-amount-error').text('Loan amount cannot be greater than 5 lakh.');
+            // will dispaly error message if given amount is greater than 10lakh
+            if(loanAmount>1000000){
+                $('#loan-amount-error').text('Loan amount cannot be greater than 10 lakh.');
                 return false;
             }
+            //to get rate of interest based on type
             $.get("http://localhost:8082/loan/scheme/"+loanType,function (rateOfInterest) {
                 alert("Rate Of Interest for this loan is:"+rateOfInterest)
+                // formula for calculating emi
                 interest = (loanAmount * (rateOfInterest * 0.01)) / loanTime;
                 emi = ((loanAmount/loanTime) + interest).toFixed(2);
                 totalRepayableAmount=(emi*loanTime);
-
+                //to display the result -emi and total amount to be repayed
                 $("#emi").text("The total EMI  is Rs:" + emi);
                 $("#repayamount").text("The total amount to be paid is Rs:" + totalRepayableAmount);
-
-
             })
         });
 
     });
 
 </script>
-
-
-
-
-<div class="justify-content-center d-flex ">
+<!--didvision class for form-->
+    <div class="justify-content-center d-flex ">
     <h1 style="font-family:Times New Roman;"> <img  class="me-4" src="/images/BankLogo.jpg" width="150px" height="100px"/>UNITY BANK</h1>
 </div>
+<p align="right">
+    <a th:href="@{/logout}" ><button class="btn btn-outline-danger rounded-4 me-2"><i class="bi bi-box-arrow-left"></i>Logout</button></a>
+</p>
+<!--form container-->
 <div class="container col mt-4 p-5  ">
     <h1> EMI Calculator</h1>
 
     <form id="loan-form" >
         <div class="form-group">
-            <label for="loanAmount">Loan Amount</label>
-            <input type="number" class="form-control" id="loanAmount" placeholder="Enter Loan Amount">
+<!--            field for entering loan amount-->
+            <label class="required" for="loanAmount">Loan Amount</label>
+            <input type="number" class="form-control" id="loanAmount" placeholder="Enter Loan Amount" required>
         </div>
         <div class="form-group">
-            <label for="loanTerm">Loan Term (in months)</label>
-            <input type="number" class="form-control" id="loanTerm" placeholder="Enter Loan Term in Months">
+<!--            field for entering loan term-->
+            <label class="required" for="loanTerm">Loan Term (in months)</label>
+            <input type="number" class="form-control" id="loanTerm" placeholder="Enter Loan Term in Months" required>
         </div>
 
         <div class="text-center">
+<!--            button for calculating emi-->
             <button type="button" id="emibtn" class="btn btn-primary mt-3">Calculate EMI</button>
         </div>
     <div id="loan-amount-error" style="color: red;"></div>
-
+<!--     to store emi and repay amount result-->
     <p id="emi"></p>
     <p id="repayamount"></p>
+<!--        logout button-->
+
     </form>
+
 </div>
 </body>
 </html>
