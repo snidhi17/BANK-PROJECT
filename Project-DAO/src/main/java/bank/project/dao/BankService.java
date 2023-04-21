@@ -71,7 +71,7 @@ public class BankService implements  BankOperations, UserDetailsService {
 
     //to set attempt to 0 if user is inactive
     public void updateStatus() {
-        jdbcTemplate.update("update CUSTOMER set CUSTOMER_STATUS='Inactive' where FAILED_ATTEMPTS=0");
+        jdbcTemplate.update("update CUSTOMER set CUSTOMER_STATUS='Inactive' where FAILED_ATTEMPTS=3");
         logger.info("Status set to inactive");
     }
 

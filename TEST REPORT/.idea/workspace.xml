@@ -2,23 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad00c204-ba1f-4498-98e6-1a800a4c7a94" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Project-APP/Unitybank.log.2023-04-19.0.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Project-APP/Unitybank.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/Unitybank.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project-APP/Unitybank.log.2023-04-12.0.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/BankSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/BankSecurity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/CustomerLoginFailureHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/CustomerLoginFailureHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/CustomerLoginSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/CustomerLoginSuccessHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/MvnController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/java/bank/project/app/MvnController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/dash.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/dash.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/emicalculator.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/emicalculator.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-APP/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/BankOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/BankOperations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/BankService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/BankService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-DAO/src/main/java/bank/project/dao/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project-DAO/src/main/resources/loan.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-DAO/src/main/resources/loan.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Project-DAO/src/test/java/bank/project/dao/DaoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project-DAO/src/test/java/bank/project/dao/DaoApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

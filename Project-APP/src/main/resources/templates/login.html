@@ -29,31 +29,25 @@
         }
     </style>
 </head>
+
 <body>
-
-    <script>
-        // $(document).ready(()=> {
-        //     $("#btn").click(() => {
-        //         $.post('http://localhost:8082/loan/authentication',{username:$("input[name=username]").val(),password:$("input[name=password]").val()},
-        //             function(response){
-        //             if(response=="Success"){
-        //                 window.location.href="http://localhost:8082/web/dash";
-        //             }
-        //             else{
-        //                 alert(response);
-        //             }
-        //             })
-        //         })
-        //     })
-        // // $(document).ready(()=> {
-        // //     $("#emibtn").click(()=>{
-        // //         $.post('http://localhost:8082')
-        // //
-        // //
-        // //     })
-        // // })
-
-    </script>
+<script>
+    function numberValidationFunc()
+    {
+        var input = document.getElementById("#password").value;
+        var pattern = /^[0-9]+$/;
+        if(input.match(pattern))
+        {
+            document.getElementById("#error").innerHTML ="Correct Format";
+            return true;
+        }
+        else
+        {
+            document.getElementById("#error").innerHTML ="Enter Numeric value";
+            return false;
+        }
+    }
+</script>
 <!--<div class="container">-->
     <div class=" justify-content-center d-flex">
 <!--        logo and bank name-->
@@ -68,13 +62,16 @@
             <form id="loginForm" th:action="@{/web/log}" method="post">
                 <div class="form group">
 <!--                  field for customer id-->
-                    <label class="required">Customer ID</label>
-                    <input type="text" placeholder="Customer ID" name="username" id="username" class="form-control" required/>
+                    <label class="required">Customer Username</label>
+                    <input type="text" placeholder="Customer username" name="username" id="username" class="form-control"  onclick="validateForm()"  required/>
+                    <div id="error-message"></div>
                 </div>
+
                 <div class="form group">
 <!--                    field for customer pin-->
                     <label class="required">Customer PIN</label>
-                    <input type="password" placeholder="Customer PIN" name="password" id="password" class="form-control" required/>
+                    <input type="password" placeholder="Customer PIN" name="password"  id="password" onclick="numberValidationFunc()" class="form-control"  autocomplete="off" required/>
+                    <p id="error"></p>
                 </div>
 <!--                messages to be displayed if login doen't happen-->
                 <div th:if="${param.error}">
@@ -83,7 +80,7 @@
                 <div class="row justify-content-around mt-3">
 <!--                    submit and reset button-->
                     <button class="col-2 btn btn-outline-info" type="submit" id="btn">
-<!--                        i-frame bootstrap for icons -->
+<!--                   i-frame bootstrap for icons -->
                         <i class="bi bi-person-fill-add"></i>
                     </button>
                     <button class="col-2 btn btn-outline-warning" type="reset">

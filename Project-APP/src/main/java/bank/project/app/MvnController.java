@@ -16,7 +16,8 @@ public class MvnController {
     }
     @GetMapping("/dash")
     //direct to dash page
-    public String dash(){
+    public String dash()
+    {
         return "dash";
     }
     @GetMapping("/emi")

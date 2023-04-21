@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,6 +70,10 @@
         </h1>
     </div>
 </div>
+<!--logout button-->
+<p align="right">
+    <a th:href="@{/logout}" ><button class="btn btn-outline-danger rounded-4 me-2"><i class="bi bi-box-arrow-left"></i>Logout</button></a>
+</p>
 <div class="col-12 p-3 me-2 ms-1">
 <!--    marque-->
     <div class="text-warning h-100">

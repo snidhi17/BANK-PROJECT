@@ -39,7 +39,12 @@ public class BankSecurity {
         httpSecurity.authorizeRequests((requests)->{
 //                requests.antMatchers("/resources/static/images/**","/web/log**").permitAll();
 //               requests.antMatchers("/web/**","/loan/**").authenticated();
-            requests.anyRequest().permitAll();
+           // requests.anyRequest().permitAll();
+            requests.antMatchers("/resources/static/images/**").permitAll();
+            requests.antMatchers("/web/login").permitAll();
+            requests.antMatchers("/web/dash").authenticated();
+            requests.antMatchers("/web/emi").authenticated();
+
         });
 
 
