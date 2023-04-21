@@ -12,15 +12,13 @@
 <!--    link for AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
-        body{
-            /*background colour for page*/
-            background:linear-gradient(45deg,rgb(190, 109, 224),black);
-        }
+
         #fm{
             /*background colour for form*/
             background:linear-gradient(90deg,rgb(228, 193, 193),skyblue);
             color:beige;
         }
+        /*mandatory field*/
         .required::after{
             content:"*" ;
             color: red;
@@ -28,27 +26,44 @@
 
         }
     </style>
+    <script>
+        $(document).ready(()=> {
+            $('#username').on('input', function () {
+                console.log("Entered the valid username");
+                var username = $(this).val();
+                var validUserName = /^[a-z]{3,}$/;
+                if (username.length === 0) {
+                    $('.user').addClass('invalid-msg').text("username is required!!");
+                    $(this).addClass('invalid-input').removeClass('valid-input');
+                } else if (!validUserName.test(username)) {
+                    $('.user').addClass('invalid-msg').text('username must atleast 3 characters!!');
+                    $(this).addClass('invalid-input').removeClass('valid-input');
+                } else {
+                    $('.user').empty();
+                $(this).addClass('valid-input').removeClass('invalid-input');
+                }
+            });
+            $('#password').on('input', function () {
+                console.log("Entered the valid password");
+                var password = $(this).val();
+                var validPassword = /^[0-9]{2,}$/;
+                if (password.length === 0) {
+                    $('.password').addClass('invalid-msg').text("password is required!!");
+                    $(this).addClass('invalid-input').removeClass('valid-input');
+                } else if (!validPassword.test(password)) {
+                    $('.password').addClass('invalid-msg').text('password must contain numbers!!');
+                    $(this).addClass('invalid-input').removeClass('valid-input');
+                } else {
+                    $('.password').empty();
+                    $(this).addClass('valid-input').removeClass('invalid-input');
+                }
+            });
+        })
+    </script>
 </head>
 
-<body>
-<script>
-    function numberValidationFunc()
-    {
-        var input = document.getElementById("#password").value;
-        var pattern = /^[0-9]+$/;
-        if(input.match(pattern))
-        {
-            document.getElementById("#error").innerHTML ="Correct Format";
-            return true;
-        }
-        else
-        {
-            document.getElementById("#error").innerHTML ="Enter Numeric value";
-            return false;
-        }
-    }
-</script>
-<!--<div class="container">-->
+<body style="background-color:beige;">
+
     <div class=" justify-content-center d-flex">
 <!--        logo and bank name-->
         <h1 style="font-family:Times New Roman;"> <img class="col-2" src="/images/BankLogo.jpg" width="200px" height="70px" /> UNITY BANK</h1>
@@ -62,16 +77,17 @@
             <form id="loginForm" th:action="@{/web/log}" method="post">
                 <div class="form group">
 <!--                  field for customer id-->
-                    <label class="required">Customer Username</label>
+                    <label class="required" style="color: black">Customer Username</label>
                     <input type="text" placeholder="Customer username" name="username" id="username" class="form-control"  onclick="validateForm()"  required/>
+                    <p class="user text-danger"></p>
                     <div id="error-message"></div>
                 </div>
 
                 <div class="form group">
 <!--                    field for customer pin-->
-                    <label class="required">Customer PIN</label>
-                    <input type="password" placeholder="Customer PIN" name="password"  id="password" onclick="numberValidationFunc()" class="form-control"  autocomplete="off" required/>
-                    <p id="error"></p>
+                    <label class="required" style="color: black">Customer PIN</label>
+                    <input type="password" placeholder="Customer PIN" name="password"  id="password"  class="form-control"   required/>
+                    <p class="password text-danger"></p>
                 </div>
 <!--                messages to be displayed if login doesn't happen-->
                 <div th:if="${param.error}">
@@ -87,14 +103,7 @@
 <!--                        i-frame bootstrap for icons-->
                         <i class="bi bi-x-circle-fill"></i>
                     </button>
-<!--                    checkboxes for remember me-->
-                    <aside>
-                        <label><input type="checkbox" />Remember Me</label>
-                    </aside>
-                    <br>
-<!--                    href for forgot password-->
-                    <a href="#" class="forget">Forgot Password?</a>
-                    <br>
+
                 </div>
             </form>
         </div>

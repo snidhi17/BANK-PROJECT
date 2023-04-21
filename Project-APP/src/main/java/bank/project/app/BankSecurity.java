@@ -37,9 +37,6 @@ public class BankSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests((requests)->{
-//                requests.antMatchers("/resources/static/images/**","/web/log**").permitAll();
-//               requests.antMatchers("/web/**","/loan/**").authenticated();
-           // requests.anyRequest().permitAll();
             requests.antMatchers("/resources/static/images/**").permitAll();
             requests.antMatchers("/web/login").permitAll();
             requests.antMatchers("/web/dash").authenticated();
@@ -53,8 +50,7 @@ public class BankSecurity {
         httpSecurity.logout().permitAll();
         httpSecurity.formLogin().loginPage("/web/log").usernameParameter("username").failureHandler(failureHandler).successHandler(successHandler).permitAll();
         httpSecurity.csrf().disable();
-        //httpSecurity.authorizeRequests().antMatchers("/user/signup").permitAll();
-        //httpSecurity.authorizeRequests().anyRequest().authenticated();
+
 
         AuthenticationManagerBuilder builder=httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
         builder.userDetailsService(bankService);

@@ -31,6 +31,7 @@ public class CustomerLoginSuccessHandler extends SimpleUrlAuthenticationSuccessH
 //        logger.info(resourceBundle.toString());
             logger.info("  not successful");
             super.setDefaultTargetUrl("/logout");
+            super.setTargetUrlParameter("login/logout?error="+resourceBundle.getString("accInactive"));
 //        if(customer.getAttempts()==0)
 //            logger.info("deactivate");
         } else {

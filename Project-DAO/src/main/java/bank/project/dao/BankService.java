@@ -56,16 +56,9 @@ public class BankService implements  BankOperations, UserDetailsService {
         return attempts;
     }
 
-    //if two times wrong and third time correct
-//    public void decrementAttempts(int id) {
-//        jdbcTemplate.update("update CUSTOMER set ATTEMPTS = ATTEMPTS - 1 where CUSTOMER_ID=?",id);
-//        logger.info("Decreased the number of attempts");
-//        updateStatus();
-//
-//    }
 
     public void setAttempts(int id) {
-        jdbcTemplate.update("update CUSTOMER set FAILED_ATTEMPTS=3 where CUSTOMER_ID=?",id);
+        jdbcTemplate.update("update CUSTOMER set FAILED_ATTEMPTS=0 where CUSTOMER_ID=?",id);
         logger.info("Set attempts to 3");
     }
 
@@ -104,9 +97,15 @@ public class BankService implements  BankOperations, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Customer customer=getByUsername(username);
-        if(customer==null){
-            throw new UsernameNotFoundException("Invalid user");
+        logger.info("Entered loadByUsername() method");
+        Customer customer = getByUsername(username);
+
+        if (customer == null){
+            throw new UsernameNotFoundException(resourceBundle.getString("db_user"));
+        }
+        logger.info("Leaving loadByUsername() method");
+        if (customer.getCustomerstatus().equalsIgnoreCase("inactive")){
+            throw new UsernameNotFoundException(resourceBundle.getString("accInactive"));
         }
         return customer;
     }

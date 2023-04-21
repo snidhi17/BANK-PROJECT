@@ -23,24 +23,6 @@ public class BankController {
     private Logger logger = LoggerFactory.getLogger(BankService.class);//to create loggers
     ResourceBundle resourceBundle = ResourceBundle.getBundle("loan");//to create resource bundle for property file
 
-//    @GetMapping("/")
-//    public List<Customer> callList() {
-//        logger.info("ControlleraboutprintAlltherecords");
-//        return bankService.listAll();
-//    }
-
-
-
-//    @PostMapping("/byname")
-//    public String callReadByName(@RequestParam("username") String username, @RequestParam("password") String password){
-//       // logger.warn("Through the name of "+name+" controller trying to find the records");
-//        return "username";
-
-//    @GetMapping("/gets")
-//    public List<LoanScheme> callList() {
-//        return bankService.listloanAll();
-//    }
-
 
     @GetMapping("/gets")       //to take value VIA ajax
     public List<LoanScheme> callListOfLoan() {
@@ -64,37 +46,6 @@ public class BankController {
         //service method to return rate of interest called here
         logger.debug("Controller about to find record matches with "+loan_scheme_type);
         return bankService.loanROI(loan_scheme_type);
-    }
-
-
-    @PostMapping("/authentication")
-    //method for authenticating username and password
-    public String login(@RequestParam("username") String username, @RequestParam("password") String password) {
-        logger.info("Enter the username and password");
-        Customer customer = bankService.getByUsername(username);
-        if (customer == null){
-            //if customer doesn't exist message in the property fill will be displayed
-            logger.info(resourceBundle.getString("db_user"));
-            return resourceBundle.getString("db_user");
-        }
-        else {
-            logger.info(customer.getCustomerstatus());
-            //first it will retrieve customer status and if status is inactive appropiate message is displayed
-            if (customer.getCustomerstatus().equalsIgnoreCase("Inactive")){
-                logger.info(resourceBundle.getString("db_unsuccessfull"));
-                return resourceBundle.getString("db_unsuccessfull");
-            }
-            if (!password.equals(customer.getPassword())) {
-                //password doesn't match then account is deactivated after three attempts
-                bankService.incrementFailedAttempts(customer.getCustomerid());
-                logger.info(resourceBundle.getString("db_incorrect_pw"));
-                return resourceBundle.getString("db_incorrect_pw");
-            } else
-                //if success
-                logger.info(resourceBundle.getString("db_success"));
-            return resourceBundle.getString("db_success");
-
-        }
     }
 }
 
