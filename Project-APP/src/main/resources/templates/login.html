@@ -73,7 +73,7 @@
                     <input type="password" placeholder="Customer PIN" name="password"  id="password" onclick="numberValidationFunc()" class="form-control"  autocomplete="off" required/>
                     <p id="error"></p>
                 </div>
-<!--                messages to be displayed if login doen't happen-->
+<!--                messages to be displayed if login doesn't happen-->
                 <div th:if="${param.error}">
                     <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
                 </div>
