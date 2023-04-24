@@ -42,7 +42,7 @@ public class BankController {
     }
 
     @GetMapping("/scheme/{loanScheme}")
-    public float call(@PathVariable("loanScheme") String loan_scheme_type){
+    public float listLoanROI(@PathVariable("loanScheme") String loan_scheme_type){
         //service method to return rate of interest called here
         logger.debug("Controller about to find record matches with "+loan_scheme_type);
         return bankService.loanROI(loan_scheme_type);
