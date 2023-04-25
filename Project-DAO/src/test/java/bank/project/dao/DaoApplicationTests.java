@@ -76,6 +76,7 @@ class DaoApplicationTests {
         Customer customer1 = new Customer(1, "7477 ", "Manvith", "Udupi", "Inactive", "manvith", 878773435, 3);
         Customer customer2 = new Customer(2, "7877 ", "Nidhi", "Karkala", "Active", "nidhi", 878766767, 1);
         String username="manvith";
+        //mocking
         when(jdbcTemplate.queryForObject(eq("select * from CUSTOMER where USERNAME=?"),  any(RowMapper.class),eq(username)))
                .thenReturn(customer1);
         Customer customer3=bankService.getByUsername("manvith");

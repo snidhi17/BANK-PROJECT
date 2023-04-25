@@ -16,6 +16,7 @@ import org.springframework.xml.xsd.XsdSchema;
 import javax.xml.bind.annotation.XmlSchema;
 
 //sets up a SOAP web service endpoint
+
 @EnableWs
 @Configuration
 public class BankConfiguration extends WsConfigurerAdapter {

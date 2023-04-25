@@ -12,10 +12,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <!--    link for adding AJAX-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <style>
+        thead{
+            background: #228eff;
+        }
+
+        tbody{
+            background: #4cfffa;
+        }
+        #applyButton,#heading{
+            background: #0a0058;
+            color: #f7f7f7;
+        }
+    </style>
 
 </head>
 <!--background colour for page-->
-<body style="background-color:beige;">
+<body class="bg-info-subtle">
 <script>
     function calculate(type){
         //called this functon for button
@@ -50,7 +63,7 @@
            var roi=$(this).find('ns2\\:loanSchemeRoi').text();
            console.log('name:'+name+',type:'+type+',desc:'+desc+',roi:'+roi);
            // table structure
-        $("tbody").append("<tr><td>"+name+"</td><td>"+type+"</td><td>"+desc+"</td><td>"+roi+"<td><button type='button' class='btn btn-success' onclick=\"calculate('"+name+"')\">Calculate EMI</button> </td></tr>");
+        $("tbody").append("<tr><td>"+name+"</td><td>"+type+"</td><td>"+desc+"</td><td>"+roi+"<td><button type='button' class='btn btn-success' id='applyButton' onclick=\"calculate('"+name+"')\">Calculate EMI</button> </td></tr>");
        });
       },
            // error function
@@ -76,7 +89,7 @@
 </p>
 <div class="col-12 p-3 me-2 ms-1">
 <!--    marque-->
-    <div class="text-warning h-100">
+    <div class="text-light h-100">
         <marquee direction="left" class="h-50 bg-dark">
             <p>Unity bank is your first choice for monetary needs and also the bank has now increased interest on Savings account holders.</p>
         </marquee>
@@ -85,13 +98,11 @@
     <div class="container mt-5 me-5 ms-4">
         <div class="row justify-content-center">
             <!-- Main column1 - Featured products via Card component -->
-<!--            <div class="col-lg-6 col-sm-10 align-self-center">-->
-                <h1 class="text-info bg-danger mt-3 text-center rounded-5" style="text-shadow: 2px 2px 4px skyblue;">
-                    Available Loans
-                </h1>
+            <h2 class="text-center rounded-4 border-5 border-primary mt-2" id="heading">AVAILABLE LOANS</h2>
+        </div>
                 <div class="table-responsive">
 <!--                    table class-->
-                    <table class="table table-bordered table-striped p-2 bg-light shadow-lg text-nowrap" cellspacing="1px" cellpadding="1px">
+                    <table class="table table-bordered table-striped p-2 shadow-lg text-nowrap" cellspacing="1px" cellpadding="1px">
                         <thead>
 <!--                        name of rows of table-->
                         <tr>
@@ -101,7 +112,7 @@
                             <th>Loan Scheme ROI</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="dashTable">
                         </tbody>
                     </table>
                 </div>

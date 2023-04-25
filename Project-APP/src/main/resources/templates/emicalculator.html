@@ -17,7 +17,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0px 0px 10px 1px rgb(123, 114, 114);
-            background-color: black;
+            background: #0a0058;
         }
           /*styling for displaying result*/
         #result {
@@ -36,7 +36,7 @@
     </style>
 </head>
 <!--background colour for page-->
-<body style="background-color: beige;">
+<body class= "bg-info-subtle">
 
 <script>
     // AJA function for calculating EMI
@@ -44,39 +44,49 @@
         // action to be take when emibutton is clicked
             $("#emibtn").click(function () {
             // declaring variable to store values-loanAmount,loanType,loanTime
-            loanAmount= $("#loanAmount").val();
+            loanAmount= $("#loanAmount").val()
             // session storage for getting value based on type
-            loanType= sessionStorage.getItem("type");
+            loanType= sessionStorage.getItem("type")
             loanTime= $("#loanTerm").val();
-            // will dispaly error message if given amount is greater than 10lakh
+            $("#error").remove()
+            // will display error message if given amount is greater than 10lakh
                 try{
-
-                    if((((/^[^\d]*$/).test(loanAmount)))){
-                    throw "Amount should be numerics"
+                    if (loanAmount === "" || loanTime === ""){
+                        // alert("All fields are mandatory")
+                        throw "All fields are mandatory"
                     }
-                    else if((((/^[^\d]*$/).test(loanAmount)))){
-                    throw "Amount should be in numerics"
+                    else if(((/^[^\d]*$/).test(loanAmount))){
+                        throw "Amount should be numerics"
                     }
-
                     else if (loanAmount>1000000){
-                throw "Loan amount cannot be greater than 10 lakh"
+                        throw "Loan amount cannot be greater than 10 lakh"
+                    }
+                    else if(((/^[^\d]*$/).test(loanTime))){
+                        throw "Tenure should be in numerics"
+                    }
+                    else if(loanTime>36){
+                        throw "Loan tenure cannot be greater than 36 months"
+                    }
+                    else {
+                        $.get("http://localhost:8082/loan/scheme/"+loanType,function (rateOfInterest) {
+                            alert("Rate Of Interest for this loan is:"+rateOfInterest)
+                            // formula for calculating emi
+                            interest = (loanAmount * (rateOfInterest * 0.01)) / loanTime;
+                            emi = ((loanAmount/loanTime) + interest).toFixed(2);
+                            totalRepayableAmount=(emi*loanTime).toFixed(2);
+                            //to display the result -emi and total amount to be repayed
+                            $("#emi").text("The total EMI  is Rs:" + emi);
+                            $("#repayamount").text("The total amount to be paid is Rs:" + totalRepayableAmount);
+                        })
                     }
                 }
                 catch(errmessage){
-                    $("loanError").append("<div class='row justify-content-center bg-danger-subtle text-danger p-2 ms-2 me-3 mb-1' id='error'><p class='text-center'>"+errmessage+"</p></div>")
+                    // alert(errmessage)
+                    $("#loanError").append("<div class='row justify-content-center bg-danger-subtle text-danger p-2 ms-2 me-3 mb-1' id='error'><p class='text-center'>"+errmessage+"</p></div>")
                 }
 
             //to get rate of interest based on type
-            $.get("http://localhost:8082/loan/scheme/"+loanType,function (rateOfInterest) {
-                alert("Rate Of Interest for this loan is:"+rateOfInterest)
-                // formula for calculating emi
-                interest = (loanAmount * (rateOfInterest * 0.01)) / loanTime;
-                emi = ((loanAmount/loanTime) + interest).toFixed(2);
-                totalRepayableAmount=(emi*loanTime).toFixed(2);
-                //to display the result -emi and total amount to be repayed
-                $("#emi").text("The total EMI  is Rs:" + emi);
-                $("#repayamount").text("The total amount to be paid is Rs:" + totalRepayableAmount);
-            })
+
         });
 
     });
@@ -99,20 +109,20 @@
         <div class="form-group">
 <!--            field for entering loan amount-->
             <label class="required" for="loanAmount" style="color: azure">Loan Amount</label>
-            <input type="number" class="form-control" id="loanAmount" onclick="numberValidationFunc()" autocomplete="off" placeholder="Enter Loan Amount" required>
+            <input type="text" class="form-control" id="loanAmount"  autocomplete="off" placeholder="Enter Loan Amount" required>
             <p id="error" style="color:red;"></p>
         </div>
         <div class="form-group">
 <!--            field for entering loan term-->
             <label class="required" for="loanTerm" style="color: azure">Loan Term (in months)</label>
-            <input type="number" class="form-control" id="loanTerm" placeholder="Enter Loan Term in Months" required>
+            <input type="text" class="form-control" id="loanTerm" placeholder="Enter Loan Term in Months" required>
         </div>
 
         <div class="text-center">
 <!--           button for calculating emi-->
             <button type="button" id="emibtn" class="btn btn-primary mt-3">Calculate EMI</button>
         </div>
-    <div id="loanError" style="color: red;"></div>
+    <div id="loanError" style="color: red"></div>
 <!--    to store emi and repay amount result-->
     <p  style="color: azure" id="emi"></p>
     <p style="color: azure" id="repayamount"></p>
