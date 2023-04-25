@@ -57,13 +57,13 @@
            success:(data)=>{
             // for  displaying the response
            $(data).find('ns2\\:loan').each(function(){
-           var type=$(this).find('ns2\\:loanSchemeName').text();
-           var name=$(this).find('ns2\\:loanSchemeType').text();
+           var name=$(this).find('ns2\\:loanSchemeName').text();
+           var type=$(this).find('ns2\\:loanSchemeType').text();
            var desc=$(this).find('ns2\\:loanSchemeDesc').text();
            var roi=$(this).find('ns2\\:loanSchemeRoi').text();
            console.log('name:'+name+',type:'+type+',desc:'+desc+',roi:'+roi);
            // table structure
-        $("tbody").append("<tr><td>"+name+"</td><td>"+type+"</td><td>"+desc+"</td><td>"+roi+"<td><button type='button' class='btn btn-success' id='applyButton' onclick=\"calculate('"+name+"')\">Calculate EMI</button> </td></tr>");
+        $("tbody").append("<tr><td>"+name+"</td><td>"+type+"</td><td>"+desc+"</td><td>"+roi+"<td><button type='button' class='btn btn-success' id='applyButton' onclick=\"calculate('"+type+"')\">Calculate EMI</button> </td></tr>");
        });
       },
            // error function
@@ -110,6 +110,8 @@
                             <th>Loan Scheme Name</th>
                             <th>Loan Scheme Description</th>
                             <th>Loan Scheme ROI</th>
+                            <th>EMI Calculation</th>
+
                         </tr>
                         </thead>
                         <tbody id="dashTable">

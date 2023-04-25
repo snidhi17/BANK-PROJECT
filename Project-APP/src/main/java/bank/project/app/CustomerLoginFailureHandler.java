@@ -32,9 +32,9 @@ public class CustomerLoginFailureHandler extends SimpleUrlAuthenticationFailureH
         }
         else{
             if(customer.getCustomerstatus().equalsIgnoreCase("inactive")){
-                logger.info(resourceBundle.getString("db_unsuccessfull"));
-                exception=new LockedException(resourceBundle.getString("db_unsuccessfull"));
-                super.setDefaultFailureUrl("/web/log?error="+ resourceBundle.getString("db_unsuccessfull"));
+                logger.info(resourceBundle.getString("accInactive"));
+                exception=new LockedException(resourceBundle.getString("accInactive"));
+                super.setDefaultFailureUrl("/web/log?error="+ resourceBundle.getString("accInactive"));
             }
             else{
                 bankService.incrementFailedAttempts(customer.getCustomerid());
@@ -55,7 +55,8 @@ public class CustomerLoginFailureHandler extends SimpleUrlAuthenticationFailureH
                     bankService.updateStatus();
                     super.setDefaultFailureUrl("/web/log?error=" + resourceBundle.getString("db_unsuccessfull"));
                 }
-            }}
+            }
+        }
         super.onAuthenticationFailure(request, response, exception);
 
     }
