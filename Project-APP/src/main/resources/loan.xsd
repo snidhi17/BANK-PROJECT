@@ -32,7 +32,7 @@
             <xsd:sequence>
                 <xsd:element name="status" type="tns:serviceStatus" />
                 <xsd:element name="loan" type="tns:loanScheme" maxOccurs="unbounded"/>
-<!--                the "maxOccurs" attribute is used in the "listLoanResponse" element to specify that the "loan" element can occur an unlimited number of times within the sequence.-->
+
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

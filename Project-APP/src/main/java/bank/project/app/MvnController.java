@@ -11,6 +11,7 @@ public class MvnController {
     @GetMapping("/log")
     //direct to login page
     public String loginPage()
+
     {
         return "login";
     }

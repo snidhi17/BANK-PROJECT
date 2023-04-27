@@ -27,18 +27,8 @@ public class CustomerLoginSuccessHandler extends SimpleUrlAuthenticationSuccessH
         Customer customer = (Customer) authentication.getPrincipal();
 
         ResourceBundle resourceBundle = ResourceBundle.getBundle("loan");
-        if (customer.getCustomerstatus().equalsIgnoreCase("inactive")) {
-//        logger.info(resourceBundle.toString());
-            logger.info("  not successful");
-            super.setDefaultTargetUrl("/logout");
-            super.setTargetUrlParameter("login/logout?error="+resourceBundle.getString("accInactive"));
-//        if(customer.getAttempts()==0)
-//            logger.info("deactivate");
-        } else {
-            bankService.setAttempts(customer.getCustomerid());
-            super.setDefaultTargetUrl("/web/dash");
-
-        }
+        bankService.setAttempts(customer.getCustomerid());
+        super.setDefaultTargetUrl("/web/dash");
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

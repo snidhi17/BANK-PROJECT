@@ -36,11 +36,12 @@ public class BankConfiguration extends WsConfigurerAdapter {
     }
    // "loanSchema" bean returns an XSD schema object that defines the structure of the XML request and response messages for the SOAP web service.
     @Bean
+    //register inthat location
     public ServletRegistrationBean servletRegistrationBean(ApplicationContext applicationContext){
    // "servletRegistrationBean" bean creates a "MessageDispatcherServlet" object and registers it with the Servlet container.
         MessageDispatcherServlet servlet=new MessageDispatcherServlet();
-        servlet.setTransformWsdlLocations(true);//configures the servlet to transform the WSDL location to match the URL of the deployed web service.
-        servlet.setApplicationContext(applicationContext);//
+        servlet.setTransformWsdlLocations(true);//configures the servlet to transform the WSDL location to match the URLq of the deployed web service.
+        servlet.setApplicationContext(applicationContext);
         return new ServletRegistrationBean(servlet,"/loanpoint/*");
     }
 }

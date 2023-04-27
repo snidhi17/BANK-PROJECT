@@ -29,27 +29,25 @@ public class BankEndpoint {
     @ResponsePayload
          // handles a SOAP web service request with the local part "listLoanRequest".
     public ListLoanResponse listLoanResponse(@RequestPayload ListLoanRequest listLoansRequest){
-        //method takes in a request payload of type "ListLoanRequest" and returns a response payload of type "ListLoanResponse"
         ListLoanResponse response=new ListLoanResponse();
-        logger.info(" Will retrieve list of loan schemes");
         //soap ui used in dao part
         List<bank.project.dao.LoanScheme> loanSchemeList = bankService.listALLAvailableLoan();// pojo objects
-        logger.info("Request has been made");
+        logger.info(" Will retrieve list of loan schemes");
         logger.info(loanSchemeList.toString());
         //created using xsd
-        List<soap.project.bank.LoanScheme> loansList=new ArrayList<>();// xml list of objects as of its empty
+        List<soap.project.bank.LoanScheme> loansList=new ArrayList<>();// xml list of objects as of now its empty
 
-
+        //to itearate all data  one by one
         Iterator<bank.project.dao.LoanScheme> it= loanSchemeList.iterator();
         while(it.hasNext()){
-            //the retrieved loan schemes are converted into XML objects of type "soap.project.bank.LoanScheme" using the "BeanUtils.copyProperties()" method(covert one java object to another
-            soap.project.bank.LoanScheme loan = new soap.project.bank.LoanScheme();// XSD POJO
+            soap.project.bank.LoanScheme loan = new soap.project.bank.LoanScheme();// XSD POJO-create object for soap
+
             BeanUtils.copyProperties(it.next(),loan);
             loansList.add(loan);
         }
-        //gets the size ,the first element of the "loan" property of the response object and returns the response object.
+        //response object created in xsd
         response.getLoan().addAll(loansList);
-        logger.info(response.getLoan().size()+"" + response.getLoan().get(0));
+        logger.info(response.toString());
         return response;
     }
 }

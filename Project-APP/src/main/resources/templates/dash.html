@@ -31,13 +31,12 @@
 <body class="bg-info-subtle">
 <script>
     function calculate(type){
-        //called this functon for button
         // key value pair
         sessionStorage.setItem("type",type);
         // link to direct to next page
         window.location.href="http://localhost:8082/web/emi";
     }
-    // connecting SOAP to front end
+    // SOAP
     var soapRequest="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:bank=\"http://bank.project.soap\">\n"+
  "<soapenv:Header/>\n"+
  "<soapenv:Body>\n"+
@@ -47,7 +46,6 @@
     $(document).ready(function(){
         // AJAX method
        $.ajax({
-           // url for loanpoint
            url:"http://localhost:8082/loanpoint",
            // method type post
            type:"POST",
@@ -57,11 +55,11 @@
            success:(data)=>{
             // for  displaying the response
            $(data).find('ns2\\:loan').each(function(){
+               var type=$(this).find('ns2\\:loanSchemeType').text();
            var name=$(this).find('ns2\\:loanSchemeName').text();
-           var type=$(this).find('ns2\\:loanSchemeType').text();
            var desc=$(this).find('ns2\\:loanSchemeDesc').text();
            var roi=$(this).find('ns2\\:loanSchemeRoi').text();
-           console.log('name:'+name+',type:'+type+',desc:'+desc+',roi:'+roi);
+           //console.log('name:'+name+',type:'+type+',desc:'+desc+',roi:'+roi);
            // table structure
         $("tbody").append("<tr><td>"+name+"</td><td>"+type+"</td><td>"+desc+"</td><td>"+roi+"<td><button type='button' class='btn btn-success' id='applyButton' onclick=\"calculate('"+type+"')\">Calculate EMI</button> </td></tr>");
        });
@@ -106,8 +104,8 @@
                         <thead>
 <!--                        name of rows of table-->
                         <tr>
-                            <th>Loan Scheme Type</th>
                             <th>Loan Scheme Name</th>
+                            <th>Loan Scheme Type</th>
                             <th>Loan Scheme Description</th>
                             <th>Loan Scheme ROI</th>
                             <th>EMI Calculation</th>

@@ -46,7 +46,7 @@ public class BankService implements  BankOperations, UserDetailsService {
             logger.info("will retrieve data from table based on "+username);
             return customer;
         } catch (DataAccessException e) {
-            logger.info("returns exception if the username is null");
+            logger.info("Exception");
             return null;
         }
     }
@@ -62,8 +62,8 @@ public class BankService implements  BankOperations, UserDetailsService {
         logger.info("Set attempts to 3");
     }
 
-    //to set attempt to 0 if user is inactive
-    public void updateStatus() {
+    //to set sttatus to inactive if attempt is 3
+     public void updateStatus() {
         jdbcTemplate.update("update CUSTOMER set CUSTOMER_STATUS='Inactive' where FAILED_ATTEMPTS=3");
         logger.info("Status set to inactive");
     }
@@ -89,21 +89,22 @@ public class BankService implements  BankOperations, UserDetailsService {
     }
 
     @Override
+
     public float loanROI(String loan_scheme_type) {
         //to retrieve loan roi which is of type float and parameter is loan_scheme_type
-        logger.info("gives details from loan scheme table based on "+loan_scheme_type);
+        logger.info("Rate of interest calculated");
         return jdbcTemplate.queryForObject("select loan_scheme_roi from loanscheme where loan_scheme_type=?",Float.class,loan_scheme_type);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("Entered loadByUsername() method");
+        logger.info("Entered loadByUsername() method"+username);
         Customer customer = getByUsername(username);
 
         if (customer == null){
             throw new UsernameNotFoundException(resourceBundle.getString("db_user"));
         }
-        logger.info("Leaving loadByUsername() method");
+        logger.info("Leaving loadByUsername() method"+username);
         if (customer.getCustomerstatus().equalsIgnoreCase("inactive")){
             throw new UsernameNotFoundException(resourceBundle.getString("accInactive"));
         }

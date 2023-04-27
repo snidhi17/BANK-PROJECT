@@ -27,8 +27,10 @@ public class CustomerLoginFailureHandler extends SimpleUrlAuthenticationFailureH
         String passWord=request.getParameter("password");
         Customer customer=bankService.getByUsername(userName);
         if(customer==null){
+            logger.info("User doesn't exists");
             exception=new LockedException(resourceBundle.getString("db_user"));
             super.setDefaultFailureUrl("/web/log?error="+ resourceBundle.getString("db_user"));
+
         }
         else{
             if(customer.getCustomerstatus().equalsIgnoreCase("inactive")){
@@ -52,6 +54,7 @@ public class CustomerLoginFailureHandler extends SimpleUrlAuthenticationFailureH
                 else{
                     logger.info(resourceBundle.getString("db_unsuccessfull"));
                     exception=new LockedException(resourceBundle.getString("db_unsuccessfull"));
+                    //3rd failure attempt account inactive
                     bankService.updateStatus();
                     super.setDefaultFailureUrl("/web/log?error=" + resourceBundle.getString("db_unsuccessfull"));
                 }

@@ -49,7 +49,7 @@
             loanType= sessionStorage.getItem("type")
             loanTime= $("#loanTerm").val();
             $("#error").remove()
-            // will display error message if given amount is greater than 10lakh
+            // validation
                 try{
                     if (loanAmount === "" || loanTime === ""){
                         // alert("All fields are mandatory")
@@ -68,6 +68,7 @@
                         throw "Loan tenure cannot be greater than 36 months"
                     }
                     else {
+                        //controller url
                         $.get("http://localhost:8082/loan/scheme/"+loanType,function (rateOfInterest) {
                             alert("Rate Of Interest for this loan is:"+rateOfInterest)
                             // formula for calculating emi
